@@ -1,18 +1,14 @@
-const expressRouter = require("express")
-const { neon } = require("@neondatabase/serverless")
+import express from "express"
+import { Request, Response } from "express"
+const router = express.Router()
 
-const router = expressRouter.Router()
-
-router.get("/", async (req, res) => {
+router.get("/", async (req: Request, res: Response) => {
   try {
-    const sql = neon(process.env.DATABASE_URL)
-    const result = await sql`SELECT * FROM users;`
-
-    res.json(result)
+    res.status(200).json("Working...")
   } catch (error) {
     console.error("Error fetching users:", error)
     res.status(500).json({ error: "Failed to fetch users" })
   }
 })
 
-module.exports = router
+export default router
